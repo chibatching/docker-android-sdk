@@ -2,7 +2,9 @@ FROM java:8
 
 MAINTAINER Takao Chiba <chibatching.apps@gmail.com>
 
-RUN apt-get update && \
+RUN apt-get clean && \
+    rm -rf /var/lib/apt/lists/* && \
+    apt-get update && \
     apt-get install -yq expect --no-install-recommends && \
     apt-get clean
 
