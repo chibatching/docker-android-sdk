@@ -6,8 +6,10 @@ RUN apt-get update && \
     apt-get install -yq expect --no-install-recommends && \
     apt-get clean
 
+# Download and untar Android SDK
 RUN curl -L https://dl.google.com/android/android-sdk_r24.4.1-linux.tgz | tar xz -C /usr/local
 
+# Set environment variable
 ENV ANDROID_HOME /usr/local/android-sdk-linux
 ENV PATH ${ANDROID_HOME}/tools:$ANDROID_HOME/platform-tools:$PATH
 
