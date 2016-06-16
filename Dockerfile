@@ -19,6 +19,8 @@ ENV PATH ${ANDROID_HOME}/tools:$ANDROID_HOME/platform-tools:$PATH
 # Update Android SDK Tools
 RUN echo y | android update sdk --no-ui --all --filter "tools"
 # Update and install SDK dependencies
-RUN echo y | android update sdk --no-ui --all --filter "platform-tools,build-tools-24.0.0,build-tools-23.0.3,android-24,android-23"
+RUN echo y | android update sdk --no-ui --all --filter "platform-tools,build-tools-24.0.0,build-tools-23.0.3,android-23"
+# Install Android N SDK
+RUN echo y | android update sdk --no-ui --all --filter "android-24"
 # Android Support Repository 33, Google Repository 28
 RUN echo y | android update sdk --no-ui --all --filter "extra-android-m2repository,extra-google-m2repository"
