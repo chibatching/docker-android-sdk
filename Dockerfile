@@ -16,9 +16,13 @@ RUN curl -L https://dl.google.com/android/android-sdk_r24.4.1-linux.tgz | tar xz
 ENV ANDROID_HOME /usr/local/android-sdk-linux
 ENV PATH ${ANDROID_HOME}/tools:$ANDROID_HOME/platform-tools:$PATH
 
+RUN mkdir $ANDROID_HOME/licenses
+RUN echo 8933bad161af4178b1185d1a37fbf41ea5269c55 > $ANDROID_HOME/licenses/android-sdk-license
+RUN echo 84831b9409646a918e30573bab4c9c91346d8abd > $ANDROID_HOME/licenses/android-sdk-preview-license
+
 # Update Android SDK Tools
 RUN echo y | android update sdk --no-ui --all --filter "tools"
 # Update and install SDK dependencies
 RUN echo y | android update sdk --no-ui --all --filter "platform-tools,build-tools-24.0.2,build-tools-24.0.0,build-tools-23.0.3,android-24,android-23"
-# Android Support Repository 33, Google Repository 31
+# Android Support Repository 38, Google Repository 32
 RUN echo y | android update sdk --no-ui --all --filter "extra-android-m2repository,extra-google-m2repository"
