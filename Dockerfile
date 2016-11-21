@@ -23,6 +23,6 @@ RUN echo 84831b9409646a918e30573bab4c9c91346d8abd > $ANDROID_HOME/licenses/andro
 # Update Android SDK Tools
 RUN echo y | android update sdk --no-ui --all --filter "tools"
 # Update and install SDK dependencies
-RUN echo y | android update sdk --no-ui --all --filter "platform-tools,build-tools-24.0.3,build-tools-24.0.2,android-25,android-24,android-23"
-# Android Support Repository 39, Google Repository 37
+RUN echo y | android update sdk --no-ui --all --filter "platform-tools,build-tools-24.0.3,build-tools-25.0.0,android-25,android-24,android-23"
+# Android Support Repository 40, Google Repository 38
 RUN echo y | android update sdk --no-ui --all --filter "extra-android-m2repository,extra-google-m2repository"
