@@ -25,8 +25,8 @@ RUN echo 84831b9409646a918e30573bab4c9c91346d8abd > $ANDROID_HOME/licenses/andro
 # Update Android SDK Tools
 RUN echo y | android update sdk --no-ui --all --filter "tools"
 # Update and install SDK dependencies
-RUN echo y | android update sdk --no-ui --all --filter "platform-tools,build-tools-24.0.3,build-tools-25.0.0,build-tools-25.0.1,android-25,android-24,android-23"
-# Android Support Repository 40, Google Repository 39
+RUN echo y | android update sdk --no-ui --all --filter "platform-tools,build-tools-25.0.0,build-tools-25.0.1,build-tools-25.0.2,android-25,android-24,android-23"
+# Android Support Repository 41, Google Repository 41
 RUN echo y | android update sdk --no-ui --all --filter "extra-android-m2repository,extra-google-m2repository"
 # Get constraint-layout-beta4
 RUN wget https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-1.0.0-beta4.zip -O tmp/temp.zip && mkdir -p $ANDROID_HOME/extras/android/m2repository/com/android/support/constraint/constraint-layout/ && unzip tmp/temp.zip -d tmp/ && mv tmp/constraintlayout $ANDROID_HOME/extras/android/m2repository/com/android/support/constraint/constraint-layout/1.0.0-beta4 && rm -rf tmp/temp.zip tmp/constraintlayout 
