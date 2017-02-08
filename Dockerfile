@@ -11,8 +11,11 @@ RUN dpkg --add-architecture i386 && \
     
 RUN gem install bundler
 
-# Download and untar Android SDK
-RUN curl -L https://dl.google.com/android/android-sdk_r24.4.1-linux.tgz | tar xz -C /usr/local
+# Download and untar Android SDK tools
+RUN mkdir -p /usr/local/android-sdk-linux
+RUN wget https://dl.google.com/android/repository/tools_r25.2.3-linux.zip -O tools.zip
+RUN unzip tools.zip -d /usr/local/android-sdk-linux
+RUN rm tools.zip
 
 # Set environment variable
 ENV ANDROID_HOME /usr/local/android-sdk-linux
@@ -22,13 +25,10 @@ RUN mkdir $ANDROID_HOME/licenses
 RUN echo 8933bad161af4178b1185d1a37fbf41ea5269c55 > $ANDROID_HOME/licenses/android-sdk-license
 RUN echo 84831b9409646a918e30573bab4c9c91346d8abd > $ANDROID_HOME/licenses/android-sdk-preview-license
 
-# Update Android SDK Tools
-RUN echo y | android update sdk --no-ui --all --filter "tools"
-# Update and install SDK dependencies
-RUN echo y | android update sdk --no-ui --all --filter "platform-tools,build-tools-25.0.0,build-tools-25.0.1,build-tools-25.0.2,android-25,android-24,android-23"
-# Android Support Repository 41, Google Repository 41
-RUN echo y | android update sdk --no-ui --all --filter "extra-android-m2repository,extra-google-m2repository"
-# Get constraint-layout-beta4
-RUN wget https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-1.0.0-beta4.zip -O tmp/temp.zip && mkdir -p $ANDROID_HOME/extras/android/m2repository/com/android/support/constraint/constraint-layout/ && unzip tmp/temp.zip -d tmp/ && mv tmp/constraintlayout $ANDROID_HOME/extras/android/m2repository/com/android/support/constraint/constraint-layout/1.0.0-beta4 && rm -rf tmp/temp.zip tmp/constraintlayout 
-# Get constraint-layout-solver-beta4
-RUN wget https://dl.google.com/android/repository/com.android.support.constraint-constraint-layout-solver-1.0.0-beta4.zip -O tmp/temp.zip && mkdir -p $ANDROID_HOME/extras/android/m2repository/com/android/support/constraint/constraint-layout-solver/ && unzip tmp/temp.zip -d tmp/ && mv tmp/solver $ANDROID_HOME/extras/android/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.0-beta4 && rm -rf tmp/temp.zip tmp/solver 
+# Update and install using sdkmanager
+RUN $ANDROID_HOME/tools/bin/sdkmanager "tools" "platform-tools"
+RUN $ANDROID_HOME/tools/bin/sdkmanager "build-tools;25.0.2" "build-tools;25.0.1" "build-tools;25.0.0"
+RUN $ANDROID_HOME/tools/bin/sdkmanager "platforms;android-25" "platforms;android-24" "platforms;android-23"
+RUN $ANDROID_HOME/tools/bin/sdkmanager "extras;android;m2repository" "extras;google;m2repository"
+RUN $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.0-beta4"
+RUN $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.0-beta4"
