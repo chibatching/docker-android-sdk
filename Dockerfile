@@ -28,7 +28,7 @@ RUN echo 84831b9409646a918e30573bab4c9c91346d8abd > $ANDROID_HOME/licenses/andro
 # Update and install using sdkmanager
 RUN $ANDROID_HOME/tools/bin/sdkmanager "tools" "platform-tools"
 RUN $ANDROID_HOME/tools/bin/sdkmanager "build-tools;25.0.3" "build-tools;25.0.2"
-RUN $ANDROID_HOME/tools/bin/sdkmanager "platforms;android-25" "platforms;android-24" "platforms;android-23"
+RUN $ANDROID_HOME/tools/bin/sdkmanager "platforms;android-26" "platforms;android-25" "platforms;android-24" "platforms;android-23"
 RUN $ANDROID_HOME/tools/bin/sdkmanager "extras;android;m2repository" "extras;google;m2repository"
 RUN $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2"
 RUN $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2"
