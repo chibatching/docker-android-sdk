@@ -1,12 +1,11 @@
-FROM java:8
+FROM openjdk:8
 
 MAINTAINER Takao Chiba <chibatching.apps@gmail.com>
 
-RUN dpkg --add-architecture i386 && \
-    apt-get clean && \
+RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     apt-get update && \
-    apt-get install -yq libc6:i386 libstdc++6:i386 zlib1g:i386 libncurses5:i386 build-essential libssl-dev ruby ruby-dev --no-install-recommends && \
+    apt-get install -yq libc6 libstdc++6 zlib1g libncurses5 build-essential libssl-dev ruby ruby-dev --no-install-recommends && \
     apt-get clean
     
 RUN gem install bundler
